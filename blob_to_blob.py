@@ -23,7 +23,9 @@ def main(**kwargs):
     # CYCLE OVER BLOB
     for input_blob in source_container.list_blobs():
         blob_name = input_blob['name']
-        if estensioni and blob_name.split('.')[-1] not in estensioni: continue
+        if estensioni and blob_name.split('.')[-1] not in estensioni:
+            log.debug(f"Skipping blob {blob_name} for unsupported extension")
+            continue
 
         log.info(f"Processing blob: {blob_name}...")
         file_name = os.path.join(temp_dir, blob_name)
@@ -55,11 +57,12 @@ def main(**kwargs):
 
 if __name__ == "__main__":
     # MANDATORY
+    ## Source info
     source_conn_string = ""
-    target_conn_string = ""
-
     source_container_name = ""
+    ## Destination info
     target_container_name = ""
+    target_conn_string = ""
 
     # OPTIONAL
     temp_dir = "to_upload"

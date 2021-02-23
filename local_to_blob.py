@@ -16,7 +16,9 @@ def main(**kwargs):
     estensioni = kwargs['estensioni'] if 'estensioni' in kwargs else None
 
     for file in os.listdir(input_dir):
-        if estensioni and file.split('.')[-1] not in estensioni: continue
+        if estensioni and file.split('.')[-1] not in estensioni:
+            log.debug(f"Skipping file {file} for unsupported extension")
+            continue
 
         tic = time.clock()
         log.info(f"Processing file: {file}")
@@ -34,7 +36,7 @@ def main(**kwargs):
 if __name__ == "__main__":
     # MANDATORY
     target_conn_string = ""
-    target_container_name = "container1"
+    target_container_name = ""
     input_dir = "to_upload"
 
     # OPTIONAL
